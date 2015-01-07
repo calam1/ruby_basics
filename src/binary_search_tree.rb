@@ -100,7 +100,7 @@ class BinarySearchTree
 		self.root.printInOrder
 	end
 
-
+	private :insert_value_recursively, :max_depth_of_node, :min_depth_of_node
 end
 
 bst = BinarySearchTree.new
