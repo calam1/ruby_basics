@@ -51,16 +51,49 @@ class BinarySearchTree
 		end
 	end
 
-	def depth
-		depthOfNode(self.root)	
+	def insert_recursively(value)
+		self.root = insert_value_recursively(value, self.root)
 	end
 
-	def depthOfNode(node)
+	def insert_value_recursively(value, node)
+		if node.nil?
+			node = Node.new(value)
+			return node
+		end
+
+		if value < node.value
+			node.left = insert_value_recursively(value, node.left)
+		end
+
+		if value > node.value
+			node.right = insert_value_recursively(value, node.right)
+		end
+
+		return node
+	end
+
+	def max_depth
+		max_depth_of_node(self.root)	
+	end
+
+	def max_depth_of_node(node)
 		if node.nil? 
 			return 0
 		end
 
-		return [depthOfNode(node.left), depthOfNode(node.right)].max + 1
+		return [max_depth_of_node(node.left), max_depth_of_node(node.right)].max + 1
+	end
+
+	def min_depth
+		min_depth_of_node(self.root)	
+	end
+
+	def min_depth_of_node(node)
+		if node.nil? 
+			return 0
+		end
+
+		return [min_depth_of_node(node.left), min_depth_of_node(node.right)].min + 1
 	end
 
 	def printInOrder
@@ -75,9 +108,22 @@ bst.insert(5)
 bst.insert(15)
 bst.insert(2)
 bst.insert(25)
-
-puts bst.root.value
+puts "-----------------"
+puts "root value of bst #{bst.root.value}"
 puts "-----------------"
 bst.printInOrder
 puts "-----------------"
-puts bst.depth
+puts "max depth of BST is #{bst.max_depth}"
+puts "-----------------"
+puts "min depth of BST is #{bst.min_depth}"
+puts "-----------------"
+bst2 = BinarySearchTree.new
+bst2.insert_recursively(6)
+bst2.insert_recursively(22)
+bst2.insert_recursively(3)
+bst2.insert_recursively(1)
+puts "root value of bst2 #{bst2.root.value}"
+puts "-----------------"
+bst2.printInOrder
+
+
