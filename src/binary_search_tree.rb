@@ -11,14 +11,12 @@ class Node
 		if value == self.value
 			puts "same value do nothing, we don't insert duplicates"
 		elsif value < self.value
-			puts "value to insert is less than node value"
 			if left.nil?
 				self.left = Node.new(value)
 			elsif
 				self.left.insert(value)
 			end
 		elsif value > self.value
-			puts "value to insert is greater than node value"
 			if right.nil?
 				self.right = Node.new(value)
 			elsif
@@ -27,15 +25,27 @@ class Node
 		end
 	end
 
-	def printInOrder
+	def print_in_order
 		unless left.nil?
-			left.printInOrder
+			left.print_in_order
 		end
 
 		puts self.value
 
 		unless right.nil?
-			right.printInOrder
+			right.print_in_order
+		end
+	end
+	
+	def print_pre_order
+		puts self.value
+
+		unless left.nil?
+			left.print_in_order
+		end
+
+		unless right.nil?
+			right.print_in_order
 		end
 	end
 end
@@ -138,8 +148,29 @@ class BinarySearchTree
 		return false
 	end
 
-	def printInOrder
-		self.root.printInOrder
+	def self.process_sorted_array(sorted_array)
+		return process_sorted_array_into_binary_search_tree(sorted_array, 0, sorted_array.size - 1)
+	end
+
+	def self.process_sorted_array_into_binary_search_tree(sorted_array, low, high)
+		if (high < low)
+			return nil
+		end
+
+		mid = (high - low)/2 + low
+		node = Node.new(sorted_array.at(mid))
+		node.left = process_sorted_array_into_binary_search_tree(sorted_array, low, mid - 1)
+		node.right = process_sorted_array_into_binary_search_tree(sorted_array, mid + 1, high )
+
+		return node
+	end
+
+	def print_in_order
+		self.root.print_in_order
+	end
+
+	def print_pre_order
+		self.root.print_pre_order
 	end
 
 	private :insert_value_recursively, :max_depth_of_node, :min_depth_of_node, :diameter_of_node, :node_has_path_sum?
@@ -153,8 +184,10 @@ bst.insert(2)
 bst.insert(25)
 puts "-----------------"
 puts "root value of bst #{bst.root.value}"
-puts "-----------------"
-bst.printInOrder
+puts "----------------- print in order"
+bst.print_in_order
+puts "----------------- print pre order"
+bst.print_pre_order
 puts "-----------------"
 puts "max depth of BST is #{bst.max_depth}"
 puts "-----------------"
@@ -171,19 +204,35 @@ puts "-----------------"
 puts "does BST have path sum of 45 #{bst.has_path_sum?(45)}"
 puts "-----------------"
 bst2 = BinarySearchTree.new
-bst2.insert_recursively(6)
-bst2.insert_recursively(22)
-bst2.insert_recursively(5)
-bst2.insert_recursively(4)
+bst2.insert_recursively(3)
+bst2.insert_recursively(1)
 bst2.insert_recursively(2)
+bst2.insert_recursively(4)
+bst2.insert_recursively(5)
 puts "root value of bst2 #{bst2.root.value}"
-puts "-----------------"
-bst2.printInOrder
+puts "----------------- print in order"
+bst2.print_in_order
+puts "----------------- print pre order"
+bst2.print_pre_order
 puts "-----------------"
 puts "max depth of BST2 is #{bst2.max_depth}"
 puts "-----------------"
 puts "min depth of BST2 is #{bst2.min_depth}"
 puts "-----------------"
-puts "bst is balanced: #{bst2.is_balanced?}"
+puts "bst2 is balanced: #{bst2.is_balanced?}"
 puts "-----------------"
 puts "diameter of BST2 is #{bst2.diameter}"
+puts "-----------------"
+node = BinarySearchTree.process_sorted_array([1, 2, 3, 4, 5])
+bst3 = BinarySearchTree.new
+bst3.root = node
+puts "-----------------"
+puts "max depth of BST3 is #{bst3.max_depth}"
+puts "-----------------"
+puts "min depth of BST3 is #{bst3.min_depth}"
+puts "-----------------"
+puts "bst3 is balanced: #{bst3.is_balanced?}"
+puts "----------------- print in order"
+bst3.print_in_order
+puts "----------------- print pre order"
+bst3.print_pre_order
