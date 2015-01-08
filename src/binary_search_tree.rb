@@ -118,11 +118,31 @@ class BinarySearchTree
 		return [(1 + left_height + right_height), [left_diameter, right_diameter].max].max
 	end
 
+	def has_path_sum?(value)
+		return node_has_path_sum?(value, self.root)	
+	end
+
+	def node_has_path_sum?(value, node)
+		if node.nil?
+			return false
+		end
+
+		if node.left.nil? && node.right.nil?
+			if node.value == value
+				return true
+			end
+		else
+			return node_has_path_sum?(value - node.value, node.left) || node_has_path_sum?(value - node.value, node.right)
+		end
+
+		return false
+	end
+
 	def printInOrder
 		self.root.printInOrder
 	end
 
-	private :insert_value_recursively, :max_depth_of_node, :min_depth_of_node, :diameter_of_node
+	private :insert_value_recursively, :max_depth_of_node, :min_depth_of_node, :diameter_of_node, :node_has_path_sum?
 
 end
 
@@ -143,6 +163,12 @@ puts "-----------------"
 puts "bst is balanced: #{bst.is_balanced?}"
 puts "-----------------"
 puts "diameter of BST is #{bst.diameter}"
+puts "-----------------"
+puts "does BST have path sum of 7 #{bst.has_path_sum?(7)}"
+puts "-----------------"
+puts "does BST have path sum of 9 #{bst.has_path_sum?(9)}"
+puts "-----------------"
+puts "does BST have path sum of 45 #{bst.has_path_sum?(45)}"
 puts "-----------------"
 bst2 = BinarySearchTree.new
 bst2.insert_recursively(6)
