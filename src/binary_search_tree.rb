@@ -222,6 +222,30 @@ class BinarySearchTree
 		breadth_of_tree(self.root)
 	end
 
+	def find(value, node)
+		if node.nil?
+			return false
+		end
+
+		if value == node.value
+			return true
+		end
+		
+		if value < node.value
+			return find(value, node.left)
+		end
+
+		if value > node.value
+			return find(value, node.right)
+		end
+
+		return false
+	end
+
+	def find_value(value)
+		return find(value, self.root)
+	end
+
 	def print_in_order
 		self.root.print_in_order
 	end
@@ -230,7 +254,7 @@ class BinarySearchTree
 		self.root.print_pre_order
 	end
 
-	private :insert_value_recursively, :max_depth_of_node, :min_depth_of_node, :diameter_of_node, :node_has_path_sum?, :node_count, :node_leaves, :breadth_of_tree
+	private :insert_value_recursively, :max_depth_of_node, :min_depth_of_node, :diameter_of_node, :node_has_path_sum?, :node_count, :node_leaves, :breadth_of_tree, :find
 
 end
 
@@ -293,6 +317,9 @@ puts "-----------------"
 puts "bst2 is balanced: #{bst2.is_balanced?}"
 puts "-----------------"
 puts "diameter of BST2 is #{bst2.diameter}"
+puts "-----------------"
+puts "find value 59 in bst2, does it exist? #{bst2.find_value(59)}"
+puts "find value 51 in bst2, does it exist? #{bst2.find_value(51)}"
 puts "-----------------"
 node = BinarySearchTree.process_sorted_array([1, 2, 3, 4, 5])
 bst3 = BinarySearchTree.new
