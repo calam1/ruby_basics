@@ -328,8 +328,8 @@ class BinarySearchTree
 			return 0
 		end
 
-		left = [max_sum_node(node.left), 0].max
-		right = [max_sum_node(node.right), 0].max
+		left = max_sum_node(node.left)
+		right = max_sum_node(node.right)
 
 		max = node.value + [left, right].max
 		return max
