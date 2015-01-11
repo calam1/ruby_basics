@@ -51,7 +51,7 @@ class Node
 end
 
 class BinarySearchTree
-	attr_accessor :root
+	attr_accessor :root, :max
 
 	def insert(value)
 		if root.nil?
@@ -318,7 +318,22 @@ class BinarySearchTree
 
 	end
 
-	#what is the max sum of a paths of a tree
+	def max_sum
+		max = self.root.value
+		return max_sum_node(self.root)
+	end
+
+	def max_sum_node(node)
+		if node.nil?
+			return 0
+		end
+
+		left = [max_sum_node(node.left), 0].max
+		right = [max_sum_node(node.right), 0].max
+
+		max = node.value + [left, right].max
+		return max
+	end
 
 	def print_in_order
 		self.root.print_in_order
@@ -458,10 +473,15 @@ bst6.insert_recursively(1);
 bst6.insert_recursively(12);
 bst6.insert_recursively(3);
 bst6.print_in_order
+puts "bst7 values -----------------"
 bst7 = BinarySearchTree.new
 bst7.insert_recursively(18);
 bst7.insert_recursively(1);
 bst7.insert_recursively(51);
 bst7.insert_recursively(13);
 bst7.insert_recursively(9);
+bst7.print_in_order
 puts "Is bst7 a subtree of bst6?  Should be false: #{BinarySearchTree.is_subtree?(bst6.root, bst7.root)}"
+puts "-----------------"
+puts "The max sum of bst6 is #{bst6.max_sum}"
+puts "The max sum of bst7 is #{bst7.max_sum}"
