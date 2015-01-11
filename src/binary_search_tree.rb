@@ -246,6 +246,27 @@ class BinarySearchTree
 		return find(value, self.root)
 	end
 
+	def lca(node, node_1, node_2)
+		if node.nil?
+			return false
+		end
+
+		if node_1.value < node.value && node_2.value < node.value
+			return lca(node.left, node_1, node_2)
+		end
+
+		if node_1.value > node.value && node_2.value > node.value
+			return lca(node.right, node_1, node_2)
+		end
+
+		return node.value
+
+	end
+
+	def lowest_common_ancestor(node_1, node_2)
+		return lca(self.root, node_1, node_2)
+	end
+
 	def print_in_order
 		self.root.print_in_order
 	end
@@ -254,7 +275,7 @@ class BinarySearchTree
 		self.root.print_pre_order
 	end
 
-	private :insert_value_recursively, :max_depth_of_node, :min_depth_of_node, :diameter_of_node, :node_has_path_sum?, :node_count, :node_leaves, :breadth_of_tree, :find
+	private :insert_value_recursively, :max_depth_of_node, :min_depth_of_node, :diameter_of_node, :node_has_path_sum?, :node_count, :node_leaves, :breadth_of_tree, :find, :lca
 
 end
 
@@ -320,6 +341,16 @@ puts "diameter of BST2 is #{bst2.diameter}"
 puts "-----------------"
 puts "find value 59 in bst2, does it exist? #{bst2.find_value(59)}"
 puts "find value 51 in bst2, does it exist? #{bst2.find_value(51)}"
+puts "-----------------"
+node_1 = Node.new(15)
+node_2 = Node.new(55)
+puts "is the lowest common ancestor 19 for node 15 and 55 #{bst2.lowest_common_ancestor(node_1, node_2)}"
+node_1 = Node.new(75)
+node_2 = Node.new(55)
+puts "is the lowest common ancestor 55 for node 55 and 75 #{bst2.lowest_common_ancestor(node_1, node_2)}"
+node_1 = Node.new(75)
+node_2 = Node.new(1)
+puts "is the lowest common ancestor 3 for node 1 and 75 #{bst2.lowest_common_ancestor(node_1, node_2)}"
 puts "-----------------"
 node = BinarySearchTree.process_sorted_array([1, 2, 3, 4, 5])
 bst3 = BinarySearchTree.new
