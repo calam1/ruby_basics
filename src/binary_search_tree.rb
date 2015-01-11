@@ -165,6 +165,40 @@ class BinarySearchTree
 		return node
 	end
 
+	def node_count(node)
+		if node.nil?
+			return 0
+		end
+
+		left = node_count(node.left)
+		right = node_count(node.right)
+
+		return left + right + 1
+	end
+
+	def node_counter
+		return node_count(self.root)
+	end
+
+	def node_leaves(node)
+		if node.nil?
+			return 0
+		end
+
+		if node.left.nil? && node.right.nil?
+			return 1
+		end
+		
+		left = node_leaves(node.left)
+		right = node_leaves(node.right)
+
+		return left + right 
+	end	
+
+	def leaf_counter
+		return node_leaves(self.root)
+	end
+
 	def print_in_order
 		self.root.print_in_order
 	end
@@ -173,7 +207,7 @@ class BinarySearchTree
 		self.root.print_pre_order
 	end
 
-	private :insert_value_recursively, :max_depth_of_node, :min_depth_of_node, :diameter_of_node, :node_has_path_sum?
+	private :insert_value_recursively, :max_depth_of_node, :min_depth_of_node, :diameter_of_node, :node_has_path_sum?, :node_count, :node_leaves
 
 end
 
@@ -202,6 +236,10 @@ puts "-----------------"
 puts "does BST have path sum of 9 #{bst.has_path_sum?(9)}"
 puts "-----------------"
 puts "does BST have path sum of 45 #{bst.has_path_sum?(45)}"
+puts "-----------------"
+puts "the number of nodes in bst is: #{bst.node_counter}"
+puts "-----------------"
+puts "the number of leaves in bst is: #{bst.leaf_counter}"
 puts "-----------------"
 bst2 = BinarySearchTree.new
 bst2.insert_recursively(3)
@@ -236,3 +274,5 @@ puts "----------------- print in order"
 bst3.print_in_order
 puts "----------------- print pre order"
 bst3.print_pre_order
+puts "-----------------"
+puts "the number of nodes in bst3 is: #{bst3.node_counter}"
