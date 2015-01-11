@@ -287,7 +287,37 @@ class BinarySearchTree
 		put_each_value_per_level_in_array(self.root, base_array, 0)
 	end
 
-    #need to do is one tree a subtree of another tree
+	def self.nodes_equal?(node_a, node_b)
+		if node_a.nil? && node_b.nil?
+			return true
+		end
+
+		if node_a.nil? || node_b.nil?
+			return false
+		end
+
+		return node_a.value == node_b.value  &&
+			nodes_equal?(node_a.left, node_b.left) &&
+			nodes_equal?(node_a.right, node_b.right)
+	end
+
+	def self.is_subtree?(node_a, node_b)
+		if node_b.nil?
+			return true
+		end
+
+		if node_a.nil?
+			return false
+		end
+
+		if nodes_equal?(node_a, node_b)
+			return true
+		end
+
+		return is_subtree?(node_a.left, node_b) || self.is_subtree?(node_a.right, node_b)
+
+	end
+
 	#what is the max sum of a paths of a tree
 
 	def print_in_order
@@ -399,3 +429,39 @@ puts "-----------------"
 puts "the number of nodes in bst3 is: #{bst3.node_counter}"
 puts "breadth of bst3 is-----------------"
 bst3.breadth
+puts "bst4 values -----------------"
+bst4 = BinarySearchTree.new
+bst4.insert_recursively(8);
+bst4.insert_recursively(15);
+bst4.insert_recursively(5);
+bst4.insert_recursively(7);
+bst4.insert_recursively(1);
+bst4.insert_recursively(12);
+bst4.insert_recursively(3);
+bst4.print_in_order
+puts "bst5 values -----------------"
+bst5 = BinarySearchTree.new       
+bst5.insert_recursively(5);
+bst5.insert_recursively(7);
+bst5.insert_recursively(1);
+bst5.insert_recursively(3);
+bst5.print_in_order
+puts "-----------------"
+puts "Is bst5 a subtree of bst4?  Should be true: #{BinarySearchTree.is_subtree?(bst4.root, bst5.root)}"
+puts "bst6 values -----------------"
+bst6 = BinarySearchTree.new
+bst6.insert_recursively(8);
+bst6.insert_recursively(15);
+bst6.insert_recursively(5);
+bst6.insert_recursively(7);
+bst6.insert_recursively(1);
+bst6.insert_recursively(12);
+bst6.insert_recursively(3);
+bst6.print_in_order
+bst7 = BinarySearchTree.new
+bst7.insert_recursively(18);
+bst7.insert_recursively(1);
+bst7.insert_recursively(51);
+bst7.insert_recursively(13);
+bst7.insert_recursively(9);
+puts "Is bst7 a subtree of bst6?  Should be false: #{BinarySearchTree.is_subtree?(bst6.root, bst7.root)}"
