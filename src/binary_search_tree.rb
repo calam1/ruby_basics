@@ -267,6 +267,29 @@ class BinarySearchTree
 		return lca(self.root, node_1, node_2)
 	end
 
+	def put_each_value_per_level_in_array(node, base_array, level)
+		if !node.nil?
+			if (level >= base_array.size)
+				base_array.push(Array.new)
+			end
+			
+			base_array.at(level).push(node.value)
+
+			put_each_value_per_level_in_array(node.left, base_array, level + 1)
+			put_each_value_per_level_in_array(node.right, base_array, level + 1)
+		end
+
+		return base_array;
+	end
+
+	def place_each_node_value_for_each_level_in_own_array
+		base_array =  Array.new
+		put_each_value_per_level_in_array(self.root, base_array, 0)
+	end
+
+    #need to do is one tree a subtree of another tree
+	#what is the max sum of a paths of a tree
+
 	def print_in_order
 		self.root.print_in_order
 	end
@@ -275,7 +298,7 @@ class BinarySearchTree
 		self.root.print_pre_order
 	end
 
-	private :insert_value_recursively, :max_depth_of_node, :min_depth_of_node, :diameter_of_node, :node_has_path_sum?, :node_count, :node_leaves, :breadth_of_tree, :find, :lca
+	private :insert_value_recursively, :max_depth_of_node, :min_depth_of_node, :diameter_of_node, :node_has_path_sum?, :node_count, :node_leaves, :breadth_of_tree, :find, :lca, :put_each_value_per_level_in_array
 
 end
 
@@ -352,6 +375,13 @@ node_1 = Node.new(75)
 node_2 = Node.new(1)
 puts "is the lowest common ancestor 3 for node 1 and 75 #{bst2.lowest_common_ancestor(node_1, node_2)}"
 puts "-----------------"
+puts "put each level of bst2 in own array -----------------"
+return_array = bst2.place_each_node_value_for_each_level_in_own_array
+return_array.each do |array|
+	puts array
+	puts "-------"
+end
+puts "place_each_node_value_for_each_level_in_own_array return value #{return_array}"
 node = BinarySearchTree.process_sorted_array([1, 2, 3, 4, 5])
 bst3 = BinarySearchTree.new
 bst3.root = node
