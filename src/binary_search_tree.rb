@@ -25,6 +25,42 @@ class Node
 		end
 	end
 
+	def delete(value, node)
+		if value < self.value
+			if (left.nil?)
+				return false
+			else
+				return left.delete(value, self)
+			end
+		elsif value > self.value
+			if (right.nil?)
+				return false
+			else
+				return right.delete(value, self)
+			end
+		else
+			if left.nil? && right.nil?
+				self.value = right.find_minimum()
+				return delete(self.value, self)
+			else
+				if node.left == self
+					node.left = left.nil?  ? right : left
+				end	
+				if node.right == self
+					node.right = right.nil? ? left : right
+				end	
+			end
+		end
+	end
+
+	def find_minimum()
+		if !left.nil?
+			left.find_minimum
+		end
+
+		return node.value
+	end
+
 	def print_in_order
 		unless left.nil?
 			left.print_in_order
@@ -36,7 +72,7 @@ class Node
 			right.print_in_order
 		end
 	end
-	
+
 	def print_pre_order
 		puts self.value
 
@@ -188,7 +224,7 @@ class BinarySearchTree
 		if node.left.nil? && node.right.nil?
 			return 1
 		end
-		
+
 		left = node_leaves(node.left)
 		right = node_leaves(node.right)
 
@@ -230,7 +266,7 @@ class BinarySearchTree
 		if value == node.value
 			return true
 		end
-		
+
 		if value < node.value
 			return find(value, node.left)
 		end
@@ -272,7 +308,7 @@ class BinarySearchTree
 			if (level >= base_array.size)
 				base_array.push(Array.new)
 			end
-			
+
 			base_array.at(level).push(node.value)
 
 			put_each_value_per_level_in_array(node.left, base_array, level + 1)
@@ -333,6 +369,10 @@ class BinarySearchTree
 
 		max = node.value + [left, right].max
 		return max
+	end
+
+	def delete(value)
+		return self.root.delete(value, nil)
 	end
 
 	def print_in_order
@@ -427,6 +467,9 @@ return_array.each do |array|
 	puts "-------"
 end
 puts "place_each_node_value_for_each_level_in_own_array return value #{return_array}"
+puts "delete bst2 value test and print the tree --------------"
+bst2.delete(2)
+bst2.print_in_order
 node = BinarySearchTree.process_sorted_array([1, 2, 3, 4, 5])
 bst3 = BinarySearchTree.new
 bst3.root = node
