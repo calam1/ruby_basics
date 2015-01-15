@@ -25,40 +25,42 @@ class Node
 		end
 	end
 
-	def delete(value, node)
-		if value < self.value
-			if (left.nil?)
+	def delete(val, node)
+		if (val < self.value)
+			if left.nil?
 				return false
 			else
-				return left.delete(value, self)
+				return left.delete(val, self)
 			end
-		elsif value > self.value
-			if (right.nil?)
+		elsif (val > self.value)
+			if right.nil?
 				return false
 			else
-				return right.delete(value, self)
+				return right.delete(val, self)
 			end
 		else
-			if left.nil? && right.nil?
-				self.value = right.find_minimum()
-				return delete(self.value, self)
+			if !left.nil? && !right.nil?
+				self.value = right.find_minimum
+				return right.delete(self.value, self)
 			else
 				if node.left == self
-					node.left = left.nil?  ? right : left
+					node.left = self.left.nil?  ? right : left
 				end	
 				if node.right == self
-					node.right = right.nil? ? left : right
+					node.right = self.right.nil? ? left : right
 				end	
 			end
+
+			return true
 		end
 	end
 
-	def find_minimum()
+	def find_minimum
 		if !left.nil?
 			left.find_minimum
+		else
+			return value
 		end
-
-		return node.value
 	end
 
 	def print_in_order
@@ -467,9 +469,9 @@ return_array.each do |array|
 	puts "-------"
 end
 puts "place_each_node_value_for_each_level_in_own_array return value #{return_array}"
-puts "delete bst2 value test and print the tree --------------"
-bst2.delete(2)
-bst2.print_in_order
+puts "delete bst2 value test and print the preorder tree --------------"
+puts bst2.delete(3)
+bst2.print_pre_order
 node = BinarySearchTree.process_sorted_array([1, 2, 3, 4, 5])
 bst3 = BinarySearchTree.new
 bst3.root = node
