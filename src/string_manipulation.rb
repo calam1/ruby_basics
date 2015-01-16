@@ -32,14 +32,21 @@ class StringManupulation
 			return str
 		end	
 
-		back = reverse_recursively(str.slice!(1, str.length - 1))
-		beg = str.slice!(0, 1)
+		#back = reverse_recursively(str.slice(1, str.length - 1))
+		back = reverse_recursively(str[1..-1])
+		#beg = str.slice(0, 1)
+		beg = str[0]
 
 		back + beg
 	end
 
 	def self.reverse_recursively_2(s)
-		s.size <= 1 ? s : "#{s[-1]}#{reverse_recursively_2(s[0...-1])}"
+		#s.size <= 1 ? s : "#{s[-1]}#{reverse_recursively_2(s[0...-1])}"
+		if s.size <= 1 
+	   		s  
+		else
+			"#{s[-1]}#{reverse_recursively_2(s[0...-1])}"
+		end
 	end
 
 end
