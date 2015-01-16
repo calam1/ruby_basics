@@ -18,8 +18,7 @@ class StringManupulation
 		length = str.length
 		ctr = length/ 2
 
-		#ruby tests to ctr number i need to test up to, thus the - 1 
-		for x in 0..ctr - 1
+		for x in 0...ctr
 			tmp = str_char[x]
 			str_char[x] = str_char[length - 1 - x]
 			str_char[length - 1 -x] = tmp
