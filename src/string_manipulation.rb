@@ -7,7 +7,7 @@ class String
 
 end
 
-class StringManupulation
+class StringManipulation
 
 	def self.reverse_using_built_in_method(str)
 		str.reverse
@@ -51,11 +51,11 @@ class StringManupulation
 
 end
 
-puts "reverse a string using the built in method:  #{StringManupulation.reverse_using_built_in_method("tester")}"
-puts "reverse a string iteratively:  #{StringManupulation.reverse_iteratively("tester")}"
+puts "reverse a string using the built in method:  #{StringManipulation.reverse_using_built_in_method("tester")}"
+puts "reverse a string iteratively:  #{StringManipulation.reverse_iteratively("tester")}"
 #you cant call "tester".reverse_inplace! - that just returns half length
 a = "tester"
 a.reverse_inplace!
 puts "reverse string by reopening a class #{a}"
-puts "reverse recursively: #{StringManupulation.reverse_recursively("tester")}"
-puts "reverse recursively 2: #{StringManupulation.reverse_recursively_2("tester")}"
+puts "reverse recursively: #{StringManipulation.reverse_recursively("tester")}"
+puts "reverse recursively 2: #{StringManipulation.reverse_recursively_2("tester")}"
