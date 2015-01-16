@@ -40,13 +40,16 @@ class StringManipulation
 		back + beg
 	end
 
+	#very similar to above - just swapped and the commented line is a very short syntactic version
 	def self.reverse_recursively_2(s)
 		#s.size <= 1 ? s : "#{s[-1]}#{reverse_recursively_2(s[0...-1])}"
 		if s.size <= 1 
-	   		s  
-		else
-			"#{s[-1]}#{reverse_recursively_2(s[0...-1])}"
+	   		return s  
 		end
+			prefix = "#{reverse_recursively_2(s[0...-1])}"
+			suffix =  "#{s[-1]}"
+
+			suffix + prefix
 	end
 
 end
