@@ -33,7 +33,7 @@ class StringManipulation
 		end	
 
 		#back = reverse_recursively(str.slice(1, str.length - 1))
-		back = reverse_recursively(str[1..-1])
+		back = reverse_recursively(str[1..-1])#.. is inclusive of the last 
 		#beg = str.slice(0, 1)
 		beg = str[0]
 
@@ -46,10 +46,22 @@ class StringManipulation
 		if s.size <= 1 
 	   		return s  
 		end
-			prefix = "#{reverse_recursively_2(s[0...-1])}"
+			prefix = "#{reverse_recursively_2(s[0...-1])}"#... not inclusive of the last
 			suffix =  "#{s[-1]}"
 
 			suffix + prefix
+	end
+
+	def self.palindrome?(str)
+		if str.nil? || str.empty?
+			return true 
+		end
+		
+		if str[0] == str[-1]
+			palindrome?(str[1...-1])
+		else
+			return false
+		end
 	end
 
 end
@@ -62,3 +74,5 @@ a.reverse_inplace!
 puts "reverse string by reopening a class #{a}"
 puts "reverse recursively: #{StringManipulation.reverse_recursively("tester")}"
 puts "reverse recursively 2: #{StringManipulation.reverse_recursively_2("tester")}"
+puts "palindrome? should be false: #{StringManipulation.palindrome?("tester")}"
+puts "palindrome? should be true: #{StringManipulation.palindrome?("racecar")}"
