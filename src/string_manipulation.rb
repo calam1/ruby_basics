@@ -64,14 +64,31 @@ class StringManipulation
 		end
 	end
 
-	#what is first non repeating character
+	def self.first_non_repeating_character(str)
+		chars = str.chars
+		length = str.length
+
+		for x in 0...length
+			ctr = 0
+			for y in 0...length
+				if chars[x] == chars[y]
+					ctr = ctr + 1
+				end
+			end	
+			if ctr == 1
+				return chars[x]
+			end
+		end
+
+	end
+
 	#delete provided letters
 	#delete provided letters in place
 	#build number from string
 	#delete duplicate letters
 	#is rotated string
 	#return the longeset palindrome
-	
+
 end
 
 puts "reverse a string using the built in method:  #{StringManipulation.reverse_using_built_in_method("tester")}"
@@ -84,3 +101,4 @@ puts "reverse recursively: #{StringManipulation.reverse_recursively("tester")}"
 puts "reverse recursively 2: #{StringManipulation.reverse_recursively_2("tester")}"
 puts "palindrome? should be false: #{StringManipulation.palindrome?("tester")}"
 puts "palindrome? should be true: #{StringManipulation.palindrome?("racecar")}"
+puts "first nonrepeating character in string should be z and it is: #{StringManipulation.first_non_repeating_character("tfttfzaab") }"
