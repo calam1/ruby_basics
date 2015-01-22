@@ -64,6 +64,14 @@ class StringManipulation
 		end
 	end
 
+	#what is first non repeating character
+	#delete provided letters
+	#delete provided letters in place
+	#build number from string
+	#delete duplicate letters
+	#is rotated string
+	#return the longeset palindrome
+	
 end
 
 puts "reverse a string using the built in method:  #{StringManipulation.reverse_using_built_in_method("tester")}"
