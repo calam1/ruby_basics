@@ -127,8 +127,18 @@ class StringManipulation
 		chars_str.join
 	end
 
-	#delete provided letters in place
-	#build number from string
+	def self.build_number_from_string(str)
+		char_str = str.chars
+
+		num = 0
+		for x in 0...str.length
+			num *= 10
+			num += char_str[x].to_i
+		end
+
+		num
+	end
+
 	#delete duplicate letters
 	#is rotated string
 	#return the longeset palindrome
@@ -150,3 +160,4 @@ puts "delete provided chars from string: #{StringManipulation.delete_provided_le
 puts "delete provided chars in place from string: #{StringManipulation.delete_provided_letters_in_place("abc", "b")}"
 puts "delete provided chars in place from string: #{StringManipulation.delete_provided_letters_in_place("abc", "a")}"
 puts "delete provided chars in place from string: #{StringManipulation.delete_provided_letters_in_place("abc", "c")}"
+puts "build number from string representation of a number: #{StringManipulation.build_number_from_string("123")}"
