@@ -156,8 +156,13 @@ class StringManipulation
 		newChars.join
 	end
 
-	#delete duplicate letters
-	#is rotated string
+	def self.string_rotated?(str_a, str_b)
+		return false if str_a.length != str_b.length
+
+		str_a_doubled = str_a + str_a
+		return str_a_doubled.index(str_b) != -1
+	end
+
 	#return the longeset palindrome
 
 end
@@ -179,3 +184,5 @@ puts "delete provided chars in place from string: #{StringManipulation.delete_pr
 puts "delete provided chars in place from string: #{StringManipulation.delete_provided_letters_in_place("abc", "c")}"
 puts "build number from string representation of a number: #{StringManipulation.build_number_from_string("123")}"
 puts "delete duplicate letters in string: #{StringManipulation.delete_duplicate_letters("tester")}"
+puts "is first string a rotated string of the second string - s/b true: #{StringManipulation.string_rotated?("bca", "abc")}"
+puts "is first string a rotated string of the second string - s/b false: #{StringManipulation.string_rotated?("bcax", "abc")}"
