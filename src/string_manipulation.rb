@@ -79,7 +79,27 @@ class StringManipulation
 				return chars[x]
 			end
 		end
+	end
 
+	def self.delete_provided_letters(str, delete_str)
+		chars_str = str.chars
+		chars_delete_str = delete_str.chars
+		chars_length = str.length
+		chars_delete_length = delete_str.length
+		new_chars = Array.new
+
+		for x in 0...chars_length
+			delete_it = false
+			for y in 0...chars_delete_length
+				if chars_str[x] == chars_delete_str[y]
+					delete_it = true	
+				end		
+			end
+
+			new_chars.push(chars_str[x]) if !delete_it
+		end
+
+		new_chars.join
 	end
 
 	#delete provided letters
@@ -101,4 +121,5 @@ puts "reverse recursively: #{StringManipulation.reverse_recursively("tester")}"
 puts "reverse recursively 2: #{StringManipulation.reverse_recursively_2("tester")}"
 puts "palindrome? should be false: #{StringManipulation.palindrome?("tester")}"
 puts "palindrome? should be true: #{StringManipulation.palindrome?("racecar")}"
-puts "first nonrepeating character in string should be z and it is: #{StringManipulation.first_non_repeating_character("tfttfzaab") }"
+puts "first nonrepeating character in string should be z and it is: #{StringManipulation.first_non_repeating_character("tfttfzaab")}"
+puts "delete provided chars from string: #{StringManipulation.delete_provided_letters("christopher", "cr")}"
