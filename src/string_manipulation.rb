@@ -102,7 +102,31 @@ class StringManipulation
 		new_chars.join
 	end
 
-	#delete provided letters
+	def self.delete_provided_letters_in_place(str, delete_str)
+		chars_str = str.chars
+		chars_delete_str = delete_str.chars
+		chars_length = str.length
+		chars_delete_length = delete_str.length
+
+		for x in 0...chars_length
+			delete_it = false
+			for y in 0...chars_delete_length
+				if chars_str[x] == chars_delete_str[y]
+					delete_it = true	
+				end
+			end
+
+			if delete_it
+				length = chars_length - 1
+				for z in (x).downto(1)
+					chars_str[z] = chars_str[z - 1]
+				end
+				chars_str.delete_at(0)
+			end
+		end
+		chars_str.join
+	end
+
 	#delete provided letters in place
 	#build number from string
 	#delete duplicate letters
@@ -123,3 +147,6 @@ puts "palindrome? should be false: #{StringManipulation.palindrome?("tester")}"
 puts "palindrome? should be true: #{StringManipulation.palindrome?("racecar")}"
 puts "first nonrepeating character in string should be z and it is: #{StringManipulation.first_non_repeating_character("tfttfzaab")}"
 puts "delete provided chars from string: #{StringManipulation.delete_provided_letters("christopher", "cr")}"
+puts "delete provided chars in place from string: #{StringManipulation.delete_provided_letters_in_place("abc", "b")}"
+puts "delete provided chars in place from string: #{StringManipulation.delete_provided_letters_in_place("abc", "a")}"
+puts "delete provided chars in place from string: #{StringManipulation.delete_provided_letters_in_place("abc", "c")}"
