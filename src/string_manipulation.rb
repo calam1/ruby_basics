@@ -139,6 +139,23 @@ class StringManipulation
 		num
 	end
 
+	def self.delete_duplicate_letters(str)
+		char_str = str.chars
+		length = str.length
+		newChars = Array.new
+
+		for x in 0...length
+			ctr = 0
+			for y in 0...length
+				ctr += 1 if char_str[x] == char_str[y]	
+			end
+
+			newChars.push(char_str[x]) if (ctr != 2)
+		end
+
+		newChars.join
+	end
+
 	#delete duplicate letters
 	#is rotated string
 	#return the longeset palindrome
@@ -161,3 +178,4 @@ puts "delete provided chars in place from string: #{StringManipulation.delete_pr
 puts "delete provided chars in place from string: #{StringManipulation.delete_provided_letters_in_place("abc", "a")}"
 puts "delete provided chars in place from string: #{StringManipulation.delete_provided_letters_in_place("abc", "c")}"
 puts "build number from string representation of a number: #{StringManipulation.build_number_from_string("123")}"
+puts "delete duplicate letters in string: #{StringManipulation.delete_duplicate_letters("tester")}"
