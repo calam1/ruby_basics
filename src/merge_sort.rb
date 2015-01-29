@@ -1,16 +1,16 @@
 class MergeSort
 #An example of merge sort. First divide the list into the smallest unit (1 element), then compare each element with the adjacent list to sort and merge the two adjacent lists. Finally all the elements are sorted and merged.
 	#recursive merge sort
-	def self.sort(arr)
+	def self.recursive_sort(arr)
 		return arr if arr.length <= 1
 
 		mid = arr.length/2
 		left = arr[0, mid]
 		right = arr[mid, arr.length]
-		merge(sort(left), sort(right))
+		recursive_merge(recursive_sort(left), recursive_sort(right))
 	end
 
-	def self.merge(left, right)
+	def self.recursive_merge(left, right)
 		sorted = []
 		until left.empty? or right.empty?
 			if left.first <= right.first
@@ -20,19 +20,6 @@ class MergeSort
 			end
 		end
 		sorted.concat(left).concat(right)
-	end
-
-	#even better recursive solution
-	#https://gist.github.com/reinh/3955850
-	def self.recursive_sort(arr)
-		size = arr.size
-		return arr if size < 2
-		mid = size/2
-
-		left = arr[0,mid]
-	   	right = arr[mid, size]
-
-		merge(recursive_sort(left), recursive_sort(right))
 	end
 
 	#iterative merge sort
@@ -68,6 +55,5 @@ class MergeSort
 
 end
 
-puts "recursive merge sort array [3, 2, 6, 1, 0, 9] #{MergeSort.sort([3, 2, 6, 1, 0, 9])}"
 puts "recursive merge sort array [3, 2, 6, 1, 0, 9] #{MergeSort.recursive_sort([3, 2, 6, 1, 0, 9])}"
 puts "iterative merge sort array [3, 2, 6, 1, 0, 9] #{MergeSort.iterative_sort([3, 2, 6, 1, 0, 9])}"
