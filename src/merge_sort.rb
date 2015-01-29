@@ -1,5 +1,5 @@
 class MergeSort
-
+#An example of merge sort. First divide the list into the smallest unit (1 element), then compare each element with the adjacent list to sort and merge the two adjacent lists. Finally all the elements are sorted and merged.
 	#recursive merge sort
 	def self.sort(arr)
 		return arr if arr.length <= 1
