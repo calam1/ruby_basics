@@ -1,3 +1,4 @@
+#alternative way to create cards in the uno server
 class TestCardBuilder
   attr_accessor :cards
 

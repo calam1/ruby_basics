@@ -1,4 +1,4 @@
-#Uno client
+#Uno client - http://www.sitepoint.com/uno-use-sinatra-implement-rest-api/
 require 'json'
 require 'rest-client'
 
